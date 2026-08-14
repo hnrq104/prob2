@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage{amsmath,amssymb,amsthm,bbm,mathtools,calc,verbatim,
-  enumitem,tikz,url,mathrsfs,cite,fullpage,hyperref,bm, marvosym,
+	enumitem,tikz,url,mathrsfs,cite,fullpage,hyperref,bm, marvosym,
 dsfont, float, subcaption}
 \renewcommand{\baselinestretch}{1.1}
 \addtolength{\footskip}{\baselineskip/2}
@@ -34,18 +34,18 @@ dsfont, float, subcaption}
 {\endinnercustomexercise}
 
 \newenvironment{clmproof}[1]{
-  \begin{proof}[Proof of
-  Claim~\ref{#1}]\let\qednow\qedsymbol\renewcommand{\qedsymbol}{}}{\; \qednow
+	\begin{proof}[Proof of
+	Claim~\ref{#1}]\let\qednow\qedsymbol\renewcommand{\qedsymbol}{}}{\; \qednow
 \end{proof}}
 
 \newcounter{step}
 \newenvironment{proofsteps}{
-  \setcounter{step}{0}
-  \begin{list}{\textbf{Step \arabic{step}.}}{\usecounter{step}
-      \setlength{\leftmargin}{1.5em}
-    \setlength{\itemsep}{0.3em}}
-  }{
-  \end{list}
+	\setcounter{step}{0}
+	\begin{list}{\textbf{Step \arabic{step}.}}{\usecounter{step}
+			\setlength{\leftmargin}{1.5em}
+		\setlength{\itemsep}{0.3em}}
+	}{
+	\end{list}
 }
 
 \newcommand{\stepcomment}[1]{\hfill {\small\textit{#1}}}
@@ -71,13 +71,13 @@ dsfont, float, subcaption}
 \newcommand{\floor}[1]{\lfloor #1 \rfloor}
 \newcommand{\ceil}[1]{\lceil #1 \rceil}
 \newcommand{\prob}{
-  \begin{problem}
+	\begin{problem}
 \end{problem}}
 \newcommand{\exer}{
-  \begin{exercise}
+	\begin{exercise}
 \end{exercise}}
 \newcommand{\cexer}[1]{
-  \begin{customprob}{#1}
+	\begin{customprob}{#1}
 \end{customprob}}
 
 \renewcommand{\leq}{\leqslant}
@@ -138,14 +138,14 @@ dsfont, float, subcaption}
 \def\vp{\varphi}
 
 \hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  urlcolor=blue,
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
 }
 
 \pagestyle{plain}
 \author{
-  Henrique
+	Henrique
 }
 \title{Notas e Listas de Prob 2}
 
@@ -154,14 +154,14 @@ dsfont, float, subcaption}
 
 \tableofcontents
 \setcounter{section}{-1}
-
 \section{Informações importantes}
+
 Devo guardar neste arquivo notas de aula e listas do curso.
-Sobre as notas, sua maior parte será somente uma enunciação  dos
+Sobre as notas, sua maior parte será somente uma enunciação dos
 principais teoremas vistos, provas
 interessantes podem ser comentadas e rascunhadas.
 O código fonte desse arquivo pode ser encontrado em
-\url{https://en.wikipedia.org/wiki/The_Garden_of_Earthly_Delights}.
+\url{https://github.com/hnrq104/prob2}.
 
 \input{topicos/martingales.tex}
 

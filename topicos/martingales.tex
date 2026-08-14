@@ -1,83 +1,122 @@
 \section{Martingales}
 
 \begin{definition}
-  Let $(\Omega, \cF, P)$ be a probability space, a martingale is a
-  sequence $X_1, X_2, \dots$
-  of random variables associated with $\sigma$-algebras $\cF_1, \cF_2, \dots$
-  that satisfy:
-  \begin{enumerate}[label=(\roman*)]
-    \item $X_i \in L^1$ and $X_i \in \cF_i$.
-    \item $\cF_i \subset \cF_{i+1}$.
-    \item $\Ex[X_{i+1} | \cF_i] = X_i$.
-  \end{enumerate}
+	Let $(\Omega, \cF, P)$ be a probability space, a martingale is a
+	sequence $X_1, X_2, \dots$
+	of random variables associated with $\sigma$-algebras $\cF_1, \cF_2, \dots$
+	that satisfy:
+	\begin{enumerate}[label=(\roman*)]
+		\item $X_i \in L^1$ and $X_i \in \cF_i$.
+		\item $\cF_i \subset \cF_{i+1}$.
+		\item $\Ex[X_{i+1} | \cF_i] = X_i$.
+	\end{enumerate}
 \end{definition}
 
 \begin{remark}
-  If one changes the assumption of (iii) to be $\Ex[X_{i+1}|\cF] \leq
-  X_i$ (resp. $\geq$), we call such sequence a supermartingale
-  (resp. submartingale).
+	If one changes the assumption of (iii) to be $\Ex[X_{i+1}|\cF] \leq
+		X_i$ (resp. $\geq$), we call such sequence a supermartingale
+	(resp. submartingale).
 \end{remark}
 
 \begin{theorem}(Doob's inequality)
-  \label{trm:doob_ineq}
-  Suppose $\{X_j\}$ is a martingale. Then
-  \[
-    \Pr(\sup_{j \leq n} |X_j| \geq l) \leq \frac{1}{l}
-    \int\id[\sup_{j \leq n} |X_j| \geq l]|X_n|dP \leq \frac{1}{l}\Ex|X_n|.
-  \]
+	\label{trm:doob_ineq}
+	Suppose $\{X_j\}$ is a martingale. Then
+	\[
+		\Pr(\sup_{j \leq n} |X_j| \geq l) \leq \frac{1}{l}
+		\int\id[\sup_{j \leq n} |X_j| \geq l]|X_n|dP \leq \frac{1}{l}\Ex|X_n|.
+	\]
 \end{theorem}
 
 \begin{proof}
-  The proof is similar to Kolmogorov's maximal inequality. For $1
-  \leq j \leq n$, let $E_j$ be the event
-  $\{X_i < l, i < j\} \cap \{X_j \geq l\}$, that is the event that
-  $X_j$ is the first to surpass $l$.
-  Note that
-  \begin{align}
-    \Pr(\sup_{j \leq n} |X_j| \geq l) = \sum_{j \leq n} \Ex[\id[E_j]]
-    \leq \sum_{j \leq n} \frac{1}{l}\Ex[\id[E_j]|X_j|] \leq \sum_{j
-    \leq n} \frac{1}{l}\Ex[\id[E_j]|X_n|] = \Ex[\id[\sup_{j \leq n}
-    |X_j| \geq l]|X_n|]
-  \end{align}
-  where the second inequality follows from the fact that $\Ex[X_n |
-  \cF_j] = X_j$ and $|x|$ is a convex function.
+	The proof is similar to Kolmogorov's maximal inequality. For $1
+		\leq j \leq n$, let $E_j$ be the event
+	$\{X_i < l, i < j\} \cap \{X_j \geq l\}$, that is the event that
+	$X_j$ is the first to surpass $l$.
+	Note that
+	\begin{align}
+		\Pr(\sup_{j \leq n} |X_j| \geq l) = \sum_{j \leq n} \Ex[\id[E_j]]
+		\leq \sum_{j \leq n} \frac{1}{l}\Ex[\id[E_j]|X_j|] \leq \sum_{j
+			\leq n} \frac{1}{l}\Ex[\id[E_j]|X_n|] = \Ex[\id[\sup_{j \leq n}
+				|X_j| \geq l]|X_n|]
+	\end{align}
+	where the second inequality follows from the fact that $\Ex[X_n |
+			\cF_j] = X_j$ and $|x|$ is a convex function.
 \end{proof}
 
 \begin{corollary}(Doob's p-inequality)
-    \label{martingales:doob_p_ineq}
-    Let $\{X_j\}$ be a martingale and $p > 1$. Then if, as before, $S_n = \sup_{j \leq n} |X_j|$, we have 
-    \[
-        \Ex S_n^p \leq \bigg(\frac{p}{p-1}\bigg)^p\Ex |X_n|^p.
-    \]
+	\label{martingales:doob_p_ineq}
+	Let $\{X_j\}$ be a martingale and $p > 1$. Then if, as before, $S_n
+		= \sup_{j \leq n} |X_j|$, we have
+	\[
+		\Ex S_n^p \leq \bigg(\frac{p}{p-1}\bigg)^p\Ex |X_n|^p.
+	\]
 \end{corollary}
 \begin{proof}
-    Follows from the previous theorem and an integration by parts. Note that for any bounded positive r.v's $Y$ and $X$
-    that satisfy $\Pr(Y \geq l) \leq \frac{1}{l}\Ex[\id[Y \geq l]X]$ we have 
-    \begin{align*}
-        \int Y^p dP &= \int\int_0^Y py^{p-1} dy dP\\ 
-            &= p \int_0^\infty y^{p-1}\Pr(Y \geq y)dy\\
-            &\leq p \int_0^\infty y^{p-1} \frac{1}{y}\Ex[\id[Y \geq y]X]dy\\
-            &= p \int_0^\infty y^{p-2} \int \id[Y \geq y] X dP\\
-            &= p\int X \int_0^Y y^{p-2} dy = \frac{p}{p-1} \int X Y^{p-1}\\
-            &\leq \frac{p}{p-1}(\Ex X^p)^{1/p} (\Ex Y^p)^{\frac{p-1}{p}}
-    \end{align*}
-    So that $\Ex Y^p \leq (\frac{p}{p-1})^p \Ex X^p$. We can then consider a truncation argument to prove the result 
-    for unbounded positive random variables.
+	Follows from the previous theorem and an integration by parts. Note
+	that for any bounded positive r.v's $Y$ and $X$
+	that satisfy $\Pr(Y \geq l) \leq \frac{1}{l}\Ex[\id[Y \geq l]X]$ we have
+	\begin{align*}
+		\int Y^p dP & = \int\int_0^Y py^{p-1} dy dP                                 \\
+		            & = p \int_0^\infty y^{p-1}\Pr(Y \geq y)dy                      \\
+		            & \leq p \int_0^\infty y^{p-1} \frac{1}{y}\Ex[\id[Y \geq y]X]dy \\
+		            & = p \int_0^\infty y^{p-2} \int \id[Y \geq y] X dP             \\
+		            & = p\int X \int_0^Y y^{p-2} dy = \frac{p}{p-1} \int X Y^{p-1}  \\
+		            & \leq \frac{p}{p-1}(\Ex X^p)^{1/p} (\Ex Y^p)^{\frac{p-1}{p}}
+	\end{align*}
+	So that $\Ex Y^p \leq (\frac{p}{p-1})^p \Ex X^p$. We can then
+	consider a truncation argument to prove the result
+	for unbounded positive random variables.
 \end{proof}
 \begin{remark}
-    This corollary is very cool on its own, it says that if some $X_n$ in the martingale belongs to $L^p$, then 
-    all previous r.v's belong as well.
+	This corollary is very cool on its own, it says that if some $X_n$
+	in the martingale belongs to $L^p$, then
+	all previous r.v's belong as well.
 \end{remark}
 
 \begin{exercise}
-    Consider the martingale of doubling one's bet. In the space $([0,1],\cB([0,1]), dm)$,
-    we consider the random variables $X_n \in \sigma([j/2^n, (j+1)/2^n])$
-    \[
-        X_n(\omega) = \begin{cases}
-            2^n & \text{ if } \omega \in [0,2^{-n}]\\
-            0 & \text{ elsewhere} 
-        \end{cases}
-    \]
-    It is easy to see that they define a martingale, all in $L^1$, $\Ex{X_n} = 1$, but $\Ex \sup_{j \leq n} X_j = (n+1)/2$.
-    So no alternative to [\ref{martingales:doob_p_ineq}] exists in $L^1$.
+	Consider the martingale of doubling one's bet. In the space $([0,1],
+		\cB([0,1]), dm)$,
+	we consider the random variables $X_n \in \sigma([j/2^n, (j+1)/2^n])$
+	\[
+		X_n(\omega) =
+		\begin{cases}
+			2^n & \text{ if } \omega \in [0,2^{-n}] \\
+			0   & \text{ elsewhere}
+		\end{cases}
+	\]
+	It is easy to see that they define a martingale, all in $L^1$,
+	$\Ex{X_n} = 1$, but $\Ex \sup_{j \leq n} X_j = (n+1)/2$.
+	So no alternative to [\ref{martingales:doob_p_ineq}] exists in $L^1$.
 \end{exercise}
+
+\begin{exercise}
+	If $\{X_n\}$ is a martingale with all differences $Y_n = X_{n} -
+		X_{n-1}$ in $L^2$, show that for $n \neq m$,
+	the differences are orthogonal, that is $\Ex Y_nY_m = 0$. Therefore
+	\[
+		\Ex X_n^2 = \Ex X_0^2 + \sum_{j = 1}^n \Ex[Y_n^2].
+	\]
+	Conclude that if $\sup \mathrm{Var}X_n < \infty$, $X_n$ converges in
+	$L^2$ to a r.v $X$.
+\end{exercise}
+
+\begin{proof}
+	It follows from the properties of condition expectation. Suppose $n
+		> m$, note that
+	\\
+	\begin{align*}
+		\Ex[(X_n - X_{n-1})(X_m - X_{m-1})] & = \Ex\Ex[(X_n - X_{n-1})(X_m -
+		X_{m-1}) | \cF_{n-1}]                                                                     \\
+		                                    & = \Ex[\Ex[X_n - X_{n-1}| \cF_{n-1}](X_m - X_{m-1})] \\
+		                                    & = \Ex[(X_{n-1} - X_{n-1})(X_m - X_{m-1})] = 0
+	\end{align*}
+	So the first result follows from that and the cancellation of cross
+	terms. The conclusion holds as $\sum_n \Ex Y_n^2$ is bounded,
+	so $\{X_n\}$ is a cauchy seq. in $L^2$.
+\end{proof}
+
+From now on, we denote as $\cF$ the smallest $\sigma$-field
+containing $\{\cF_n\}$. If $X \in \cF$, then $X_n = \Ex[X | \cF_n]$
+is a (Doob) martingale,
+and, by Jensen's ineq, if for some $p \geq 1$ $X \in L^p$ then $X_n
+	\in L^p$ for all $n$.
