@@ -118,5 +118,9 @@
 From now on, we denote as $\cF$ the smallest $\sigma$-field
 containing $\{\cF_n\}$. If $X \in \cF$, then $X_n = \Ex[X | \cF_n]$
 is a (Doob) martingale,
-and, by Jensen's ineq, if for some $p \geq 1$ $X \in L^p$ then $X_n
-	\in L^p$ for all $n$.
+and, by Jensen's ineq, if for some $p \geq 1$ $X \in L^p$ then $X_n 
+\in L^p$ for all $n$.
+
+\begin{theorem}
+    If $X \in L^p$, then $\lim_{n\to\infty} ||X - X_n||_p = 0$.
+\end{theorem}
