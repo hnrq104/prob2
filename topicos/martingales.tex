@@ -14,7 +14,7 @@
 
 \begin{remark}
 	If one changes the assumption of (iii) to be $\Ex[X_{i+1}|\cF] \leq
-		X_i$ (resp. $\geq$), we call such sequence a supermartingale
+	X_i$ (resp. $\geq$), we call such sequence a supermartingale
 	(resp. submartingale).
 \end{remark}
 
@@ -29,24 +29,24 @@
 
 \begin{proof}
 	The proof is similar to Kolmogorov's maximal inequality. For $1
-		\leq j \leq n$, let $E_j$ be the event
+	\leq j \leq n$, let $E_j$ be the event
 	$\{X_i < l, i < j\} \cap \{X_j \geq l\}$, that is the event that
 	$X_j$ is the first to surpass $l$.
 	Note that
 	\begin{align}
 		\Pr(\sup_{j \leq n} |X_j| \geq l) = \sum_{j \leq n} \Ex[\id[E_j]]
 		\leq \sum_{j \leq n} \frac{1}{l}\Ex[\id[E_j]|X_j|] \leq \sum_{j
-			\leq n} \frac{1}{l}\Ex[\id[E_j]|X_n|] = \Ex[\id[\sup_{j \leq n}
-				|X_j| \geq l]|X_n|]
+		\leq n} \frac{1}{l}\Ex[\id[E_j]|X_n|] = \Ex[\id[\sup_{j \leq n}
+		|X_j| \geq l]|X_n|]
 	\end{align}
 	where the second inequality follows from the fact that $\Ex[X_n |
-			\cF_j] = X_j$ and $|x|$ is a convex function.
+	\cF_j] = X_j$ and $|x|$ is a convex function.
 \end{proof}
 
 \begin{corollary}(Doob's p-inequality)
 	\label{martingales:doob_p_ineq}
 	Let $\{X_j\}$ be a martingale and $p > 1$. Then if, as before, $S_n
-		= \sup_{j \leq n} |X_j|$, we have
+	= \sup_{j \leq n} |X_j|$, we have
 	\[
 		\Ex S_n^p \leq \bigg(\frac{p}{p-1}\bigg)^p\Ex |X_n|^p.
 	\]
@@ -57,11 +57,11 @@
 	that satisfy $\Pr(Y \geq l) \leq \frac{1}{l}\Ex[\id[Y \geq l]X]$ we have
 	\begin{align*}
 		\int Y^p dP & = \int\int_0^Y py^{p-1} dy dP                                 \\
-		            & = p \int_0^\infty y^{p-1}\Pr(Y \geq y)dy                      \\
-		            & \leq p \int_0^\infty y^{p-1} \frac{1}{y}\Ex[\id[Y \geq y]X]dy \\
-		            & = p \int_0^\infty y^{p-2} \int \id[Y \geq y] X dP             \\
-		            & = p\int X \int_0^Y y^{p-2} dy = \frac{p}{p-1} \int X Y^{p-1}  \\
-		            & \leq \frac{p}{p-1}(\Ex X^p)^{1/p} (\Ex Y^p)^{\frac{p-1}{p}}
+		& = p \int_0^\infty y^{p-1}\Pr(Y \geq y)dy                      \\
+		& \leq p \int_0^\infty y^{p-1} \frac{1}{y}\Ex[\id[Y \geq y]X]dy \\
+		& = p \int_0^\infty y^{p-2} \int \id[Y \geq y] X dP             \\
+		& = p\int X \int_0^Y y^{p-2} dy = \frac{p}{p-1} \int X Y^{p-1}  \\
+		& \leq \frac{p}{p-1}(\Ex X^p)^{1/p} (\Ex Y^p)^{\frac{p-1}{p}}
 	\end{align*}
 	So that $\Ex Y^p \leq (\frac{p}{p-1})^p \Ex X^p$. We can then
 	consider a truncation argument to prove the result
@@ -75,7 +75,7 @@
 
 \begin{exercise}
 	Consider the martingale of doubling one's bet. In the space $([0,1],
-		\cB([0,1]), dm)$,
+	\cB([0,1]), dm)$,
 	we consider the random variables $X_n \in \sigma([j/2^n, (j+1)/2^n])$
 	\[
 		X_n(\omega) =
@@ -91,7 +91,7 @@
 
 \begin{exercise}
 	If $\{X_n\}$ is a martingale with all differences $Y_n = X_{n} -
-		X_{n-1}$ in $L^2$, show that for $n \neq m$,
+	X_{n-1}$ in $L^2$, show that for $n \neq m$,
 	the differences are orthogonal, that is $\Ex Y_nY_m = 0$. Therefore
 	\[
 		\Ex X_n^2 = \Ex X_0^2 + \sum_{j = 1}^n \Ex[Y_n^2].
@@ -102,13 +102,14 @@
 
 \begin{proof}
 	It follows from the properties of condition expectation. Suppose $n
-		> m$, note that
+	> m$, note that
 	\\
 	\begin{align*}
 		\Ex[(X_n - X_{n-1})(X_m - X_{m-1})] & = \Ex\Ex[(X_n - X_{n-1})(X_m -
-		X_{m-1}) | \cF_{n-1}]                                                                     \\
-		                                    & = \Ex[\Ex[X_n - X_{n-1}| \cF_{n-1}](X_m - X_{m-1})] \\
-		                                    & = \Ex[(X_{n-1} - X_{n-1})(X_m - X_{m-1})] = 0
+		X_{m-1}) | \cF_{n-1}]
+		\\
+		& = \Ex[\Ex[X_n - X_{n-1}| \cF_{n-1}](X_m - X_{m-1})] \\
+		& = \Ex[(X_{n-1} - X_{n-1})(X_m - X_{m-1})] = 0
 	\end{align*}
 	So the first result follows from that and the cancellation of cross
 	terms. The conclusion holds as $\sum_n \Ex Y_n^2$ is bounded,
@@ -118,9 +119,57 @@
 From now on, we denote as $\cF$ the smallest $\sigma$-field
 containing $\{\cF_n\}$. If $X \in \cF$, then $X_n = \Ex[X | \cF_n]$
 is a (Doob) martingale,
-and, by Jensen's ineq, if for some $p \geq 1$ $X \in L^p$ then $X_n 
+and, by Jensen's ineq, if for some $p \geq 1$ $X \in L^p$ then $X_n
 \in L^p$ for all $n$.
 
 \begin{theorem}
-    If $X \in L^p$, then $\lim_{n\to\infty} ||X - X_n||_p = 0$.
+	If $p \geq 1$ and $X \in L^p$, then $\lim_{n\to\infty} ||X - X_n||_p = 0$.
 \end{theorem}
+
+\begin{proof}
+	By the last exercise, the result is true if $X$ is bounded. If not,
+	approximate $X$ by a bounded $X'$
+	and note that if $||X - X'|| < \eps$, then $||\Ex[X_n | \cF_n]  -
+	\Ex[X'|\cF_n]||_p \leq \eps$.
+	So we can do a two step approximation.
+\end{proof}
+
+\begin{theorem}
+	If, for some $p > 1$, a martingale $\{X_n\}$ is bounded in $L^p$,
+	that is $\sup_n ||X_n||_p < \infty$,then there exists $X \in L^p$ s.t.
+	$X_n = \Ex[X | \cF_n]$ for all $n$. In particular $||X_n - X||_p \to 0$.
+\end{theorem}
+
+\begin{proof}
+    As $p > 1$, we can choose a subseq $X_{n_j}$ that weakly converges to a limit $X$ in $L^p$ (just like Egorov's).
+    By noting that for any $A \in \cF_m$ we have $\id[A] \in L^q$, we see 
+    \[
+        \Ex[\id[A]X_m] = \lim_{j \to \infty} \Ex[\id[A]X_{n_j}] = \Ex[\id[A]X].
+    \]
+    So $X_m = \Ex[X | \cF_m]$.
+\end{proof}
+
+\begin{theorem}
+    Let $X \in L^p$ for $p \geq 1$. Then the martingale $\{X_n\}$ with $X_n = \Ex[X|\cF_n]$ converges to $X$ for 
+    almost all $\omega$ with respect to $P$.
+\end{theorem}
+\begin{proof}
+    It suffices to prove for $p = 1$. This proof is a bit nuts, we consider the set $\cM \subset L^1$
+    of random variables $Y$ s.t $Y_n \to Y$ a.e. We show that this set is dense and closed. 
+    It is easy to see that it is dense as all variables belonging to $\cF_n$ are in it.
+    To see how the set is closed, pick a sequence $Y_j \to X$ in $L^p$.
+    Note that, as $X \in L^1$, by [\ref{martingales:doob_p_ineq}], $X_n$ is an almost surely bounded 
+    sequence so it suffices to show $\Pr(\limsup{X_n} - \liminf{X_n} > \eps) = 0$ a.e. Set $Y_{j,n} = \Ex[Y_j | \cF_n]$,
+    and note that, for every $j$ 
+    \[
+        \limsup_n{X_n} - \liminf_n{X_n} \leq \limsup_n{Y_{j,n}} - \liminf_n{Y_{j,n}} + 2\sup_n{|X_n - Y_{j,n}|} = 2\sup_n{|X_n - Y_{j,n}|}.   
+    \]
+    So
+    \[
+        \Pr(\limsup_n{X_n} - \liminf_n{X_n} > \eps) \leq \Pr(\sup_n |X_n - Y_{j,n}| > \eps) \leq \Pr(|X - Y_j| > \eps) \leq \frac{1}{\eps}\Ex[|X - Y_j|] \to 0 
+    \]
+    when $j$ tends to infinity.
+\end{proof}
+
+
+
