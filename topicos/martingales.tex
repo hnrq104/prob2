@@ -141,35 +141,46 @@ and, by Jensen's ineq, if for some $p \geq 1$ $X \in L^p$ then $X_n
 \end{theorem}
 
 \begin{proof}
-    As $p > 1$, we can choose a subseq $X_{n_j}$ that weakly converges to a limit $X$ in $L^p$ (just like Egorov's).
-    By noting that for any $A \in \cF_m$ we have $\id[A] \in L^q$, we see 
-    \[
-        \Ex[\id[A]X_m] = \lim_{j \to \infty} \Ex[\id[A]X_{n_j}] = \Ex[\id[A]X].
-    \]
-    So $X_m = \Ex[X | \cF_m]$.
+	As $p > 1$, we can choose a subseq $X_{n_j}$ that weakly converges
+	to a limit $X$ in $L^p$ (just like Egorov's).
+	By noting that for any $A \in \cF_m$ we have $\id[A] \in L^q$, we see
+	\[
+		\Ex[\id[A]X_m] = \lim_{j \to \infty} \Ex[\id[A]X_{n_j}] = \Ex[\id[A]X].
+	\]
+	So $X_m = \Ex[X | \cF_m]$.
 \end{proof}
 
 \begin{theorem}
-    Let $X \in L^p$ for $p \geq 1$. Then the martingale $\{X_n\}$ with $X_n = \Ex[X|\cF_n]$ converges to $X$ for 
-    almost all $\omega$ with respect to $P$.
+	Let $X \in L^p$ for $p \geq 1$. Then the martingale $\{X_n\}$ with
+	$X_n = \Ex[X|\cF_n]$ converges to $X$ for
+	almost all $\omega$ with respect to $P$.
 \end{theorem}
 \begin{proof}
-    It suffices to prove for $p = 1$. This proof is a bit nuts, we consider the set $\cM \subset L^1$
-    of random variables $Y$ s.t $Y_n \to Y$ a.e. We show that this set is dense and closed. 
-    It is easy to see that it is dense as all variables belonging to $\cF_n$ are in it.
-    To see how the set is closed, pick a sequence $Y_j \to X$ in $L^p$.
-    Note that, as $X \in L^1$, by [\ref{martingales:doob_p_ineq}], $X_n$ is an almost surely bounded 
-    sequence so it suffices to show $\Pr(\limsup{X_n} - \liminf{X_n} > \eps) = 0$ a.e. Set $Y_{j,n} = \Ex[Y_j | \cF_n]$,
-    and note that, for every $j$ 
-    \[
-        \limsup_n{X_n} - \liminf_n{X_n} \leq \limsup_n{Y_{j,n}} - \liminf_n{Y_{j,n}} + 2\sup_n{|X_n - Y_{j,n}|} = 2\sup_n{|X_n - Y_{j,n}|}.   
-    \]
-    So
-    \[
-        \Pr(\limsup_n{X_n} - \liminf_n{X_n} > \eps) \leq \Pr(\sup_n |X_n - Y_{j,n}| > \eps) \leq \Pr(|X - Y_j| > \eps) \leq \frac{1}{\eps}\Ex[|X - Y_j|] \to 0 
-    \]
-    when $j$ tends to infinity.
+	It suffices to prove for $p = 1$. This proof is a bit nuts, we
+	consider the set $\cM \subset L^1$
+	of random variables $Y$ s.t $Y_n \to Y$ a.e. We show that this set
+	is dense and closed.
+	It is easy to see that it is dense as all variables belonging to
+	$\cF_n$ are in it.
+	To see how the set is closed, pick a sequence $Y_j \to X$ in $L^p$.
+	Note that, as $X \in L^1$, by [\ref{martingales:doob_p_ineq}], $X_n$
+	is an almost surely bounded
+	sequence so it suffices to show $\Pr(\limsup{X_n} - \liminf{X_n} >
+	\eps) = 0$ a.e. Set $Y_{j,n} = \Ex[Y_j | \cF_n]$,
+	and note that, for every $j$
+	\[
+		\limsup_n{X_n} - \liminf_n{X_n} \leq \limsup_n{Y_{j,n}} -
+		\liminf_n{Y_{j,n}} + 2\sup_n{|X_n - Y_{j,n}|} = 2\sup_n{|X_n - Y_{j,n}|}.
+	\]
+	So
+	\[
+		\Pr(\limsup_n{X_n} - \liminf_n{X_n} > \eps) \leq \Pr(\sup_n |X_n -
+		Y_{j,n}| > \eps) \leq \Pr(|X - Y_j| > \eps) \leq
+		\frac{1}{\eps}\Ex[|X - Y_j|] \to 0
+	\]
+	when $j$ tends to infinity.
 \end{proof}
 
+\begin{theorem}
 
-
+\end{theorem}

@@ -1,0 +1,64 @@
+\subsection{Lista 1}
+
+Vou passar a limpo alguns exercícios se me pedirem.
+
+\begin{exercise}
+	Seja $\tau$ um stopping time e $\tau_k \to \tau$ uma sequência crescente
+	de stopping times. Mostre que
+	\[
+		\cF_\tau = \sigma\bigg(\bigcup_k \cF_{\tau_k}\bigg)
+	\]
+\end{exercise}
+
+Precisamos de algumas observações simples.
+
+\begin{lemma}
+	Sejam $\tau_1 \leq \tau_2$ stopping times. Então $\cF_{\tau_1}
+	\subset \cF_{\tau_2}$.
+\end{lemma}
+\begin{proof}
+	Tome $A \in \cF_{\tau_1}$. Por definição, para todo $n$ temos
+	$A \cap \{\tau_1 \leq n\} \in \cF_n$. Como $\tau_1 \leq \tau_2$ e
+	$\{\tau_2 \leq n\} \in \cF_n$,
+	\[
+		A \cap \{\tau_2 \leq n\} = (A \cap \{\tau_1 \leq n\}) \cap \{\tau_2
+		\leq n\} \in \cF_n .
+	\]
+	Como isso vale para todo $n$, $A \in \cF_{\tau_2}$.
+\end{proof}
+
+\begin{obs}
+	Seja $B \in \cF_n$ e $\tau$ um stopping time qualquer. Então vale que
+	\[
+		B \cap \{\tau = n\} \in \cF_{\tau} \quad \& \quad B \cap \{\tau >
+		n\} \in \cF_{\tau}.
+	\]
+\end{obs}
+
+\begin{proof}[Prova do Exercício]
+	Segue imediatamente do primeiro lema que $\sigma(\bigcup_{k}
+	\cF_{\tau_k}) \subset \cF_{\tau}$.
+	Basta verificar a outra inclusão.
+	Seja $A \in \cF_{\tau}$, separamos $A$ de acordo com o que acontece em $\tau$
+	\[A = A \cap \{\tau = \infty\} \cup \bigg( \bigcup_{n} A \cap \{\tau
+	\leq n\} \bigg).\]
+	Vamos provar que cada pedacinho pertence a $\sigma(\bigcup_{k} \cF_{\tau_k})$.
+
+	Por definição, $A \cap \{\tau \leq n\} \in \cF_n$. Como $\tau_k \to
+	\tau$, segue que
+	\[
+		A \cap \{\tau \leq n\} = \bigcup_{k} [A \cap \{\tau \leq n\} \cap
+		\{\tau_k = n\}].
+	\]
+	Pela observação, anterior, $A \cap \{\tau \leq n\} \cap \{\tau_k =
+	n\} \in \cF_{\tau_k}$.
+	Sendo união de conjuntos dessa forma, $A \cap \{\tau \leq n\} \in
+	\sigma(\bigcup_k \cF_{\tau_k})$. Para $\{\tau = \infty\}$ temos basicamente a mesma coisa. Note que
+	\[
+		A \cap \{\tau = \infty\} = \bigcap_n A \cap \{\tau > n\}.
+	\]
+	Usando que $\tau_k \to \tau$,
+	$A \cap \{\tau > n\} = \bigcup_k A \cap \{\tau > n\} \cap \{t_k > n\}$.
+	Da mesma forma que antes, cada um dos termos pertence a
+	$\cF_{\tau_k}$ e o resultado segue.
+\end{proof}
