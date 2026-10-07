@@ -169,10 +169,15 @@ Vou passar a limpo exercĩcios do Varadhan.
 
 \begin{proof}
 	Yes, if $Z_n$ converges almost surely to $Z$ and they are uniformly integrable, then $\Ex Z_n \to \Ex Z$.
+	The way to prove this is with Egorov's theorem. If $\mu$ is a finite measure and $Z_n \to Z$ a.s,
+	then for every $\eps$ there exists a set $A$ with $\mu(A^c) < \eps$ such that $Z_n \to Z$ uniformly in $A$.
+	By using uniform integrability we can win over in $A^c$ and get usual convergence.
+	Note that if $S$ is integrable, then for all $X_{\tau \land n} \ll S$, so the family is uniformly integrable.
+	And we can apply the previous result.
 \end{proof}
 
 
-\begin{exercise}
+\begin{exercise} [5.14]
 	Seja $\tau$ um stopping time e $\tau_k \to \tau$ uma sequência crescente
 	de stopping times. Mostre que
 	\[
@@ -232,3 +237,57 @@ Precisamos de algumas observações simples.
 	Da mesma forma que antes, cada um dos termos pertence a
 	$\cF_{\tau_k}$ e o resultado segue.
 \end{proof}
+
+\begin{exercise}
+	Let $X_n = \sum_{j=1}^n \xi_j$ where each $\xi_j$ is a $\pm 1$ with probability $1/2$.
+	Show that if $\tau$ is a stopping time with $\Ex \tau < \infty$, then
+	$\sup_{1 \leq n \leq \tau} |X_n(\omega)|$ is square integrable and therefore $\Ex[X_\tau] = 0$.
+	Hint: use the fact that $X_n^2 - n$ is a martingale.
+\end{exercise}
+
+\begin{proof}
+	So, first we need to check $X_{n}^2 - n$ is a martingale, but this follows easily from
+	a previous calculation and the fact that $\Ex \xi_i \xi_j = 0$ if $i \neq j$.
+	Now let's use the previous exercise, note that considering $\tau \land n$ as a bounded stopping time,
+	we get that $\Ex X_{\tau \land n}^2 - \tau \land n = 0$. So $\Ex X_{\tau \land n}^2 \leq \Ex \tau \land n \leq \Ex \tau$.
+	It follows that $\Ex X_{\tau \land n}$ is uniformly bounded in $L^2$ and therefore uniformly
+	integrable. So $0 = \lim_{n \to \infty }\Ex X_{\tau \land n} = \Ex X_{\tau}$.
+\end{proof}
+
+\begin{exercise}
+	Show Doob's upcrossing inequality works for supermartingales, and chaging signs
+	we get a downcrossing inequality for submartingales.
+\end{exercise}
+
+\begin{proof}
+	The only thing we need to check is that for supermartingales, $\Ex D(\omega) \leq 0$. All the other
+	inequalities are the same. By switching signs we get the result for submartingales.
+\end{proof}
+
+\begin{exercise}
+	Let $X_n$ be a symmetric random walk on $\Z$ starting from $0$. Varadhan showed that for a fixed $R$ and $\lambda$ such that
+	$\cos \lambda x \geq \cos \lambda R > 0$ for $x \in [-R, R]$ (we may take $\lambda \leq \pi/(2R)$) we have
+	the inequality
+	\[
+		\Ex_x [e^{\sigma\tau_R}] \leq \frac{\cos \lambda x}{\cos \lambda R}
+	\]
+	where $\tau_R$ is the hitting time of $(-\infty, -R] \cup [R, \infty)$ and $\sigma = -\log \cos \lambda$.
+	Can you show inequality above? What range is it valid in? Is $\Ex e^{\sigma \tau} < \infty$ for all $\sigma$?
+\end{exercise}
+\begin{proof}
+	The way Varadhan proves this is by considering the martingale $e^{\sigma n} \cos(\lambda X_n)$.
+	Now it is clear that for every $n$,
+	\[
+		\cos(\lambda x) = \Ex_x e^{\sigma \tau_R \land n} \cos(\lambda X_{n \land \tau}) =
+		\Ex_x[\id[\tau > n] e^{\sigma n} \cos(\lambda X_n)] + \Ex_x[\id[\tau \leq n] e^{\sigma \tau} \cos(\lambda R)].
+	\]
+	If $\sigma < -\log \cos \lambda$, then the first term of the right hand side is bounded by
+	$\Ex e^{\sigma n} \cos(\lambda X_n) \to 0$ when $n \to \infty$. As we know the second
+	term converges to $\Ex e^{\sigma \tau} \cos(\lambda R)$ we get equality in this case.
+	I should work a bit harder on the $\sigma = -\log \cos \lambda$ case.
+
+	For the last observation, note that trivially $\Pr(X_1 = 1, X_2 = 0, \dots X_n = n\%2) = 2^{-n}$.
+	So $\Ex e^{\sigma \tau} \geq 2^{-n}e^{\sigma n}$, in particular if $\sigma > \log 2$, as this is valid for all $n$,
+	we already get $\Ex e^{\sigma \tau} = \infty$.
+\end{proof}
+
