@@ -61,15 +61,116 @@ Vou passar a limpo exercĩcios do Varadhan.
 	\[
 		\Omega = \bigotimes_{j=1}^{\infty} \R, \quad \cF = \sigma(x_1, \dots, x_n),\quad X_j(\omega) = x_j.
 	\]
-	The existance of a $Q$ such that
+	The existence of a $Q$ such that
 	\[
 		\frac{dQ}{dP}|_{\cF_n} = x_n
 	\]
 	is essentially a Kolgomorov's consistency theorem.
 \end{exercise}
 \begin{proof}
-
+	Actually don't know how to do this one.
 \end{proof}
+
+\begin{exercise}[5.5]
+	Show that $\tau(\omega) \equiv k$ is a stopping time for any constant $k$.
+\end{exercise}
+\begin{proof}
+	Note that if $n < k$, then $\{\tau \leq n\} = \varnothing \in \cF_n$. Similarly, if $n \geq k$,
+	$\{\tau \leq n\} = \Omega \in \cF_n$.
+\end{proof}
+
+\begin{exercise}[5.6]
+	Show that if $\tau$ is a stopping time and $f : \N \to \N$ is a non-decreasing function
+	with $f(t) \geq t$ for all $t$. Then $f(\tau)$ is also a stopping time.
+\end{exercise}
+\begin{proof}
+	Just note that given $n$, there exists a maximal $m$ s.t $f(m) \leq n$ and by hypothesis, $m \leq n$. Then
+	$\{f(\tau) \leq n\} = \{\tau \leq m\} \in \cF_m \subset \cF_n$.
+\end{proof}
+
+\begin{exercise}[5.7]
+	Show that if $\tau_1$ and $\tau_2$ are stopping times, so is $\max(\tau_1, \tau_2)$ and $\min(\tau_1, \tau_2)$.
+	In particular, $\tau$ is an increasing limit of bounded stopping times $\tau \land n$.
+\end{exercise}
+\begin{proof}
+	Fix $n$, note that $\{\tau_1 \land \tau_2 \leq n\} = \{\tau_1 \leq n\} \cup \{\tau_1 \leq n\} \in \cF_n$.
+	The same is true for the max, we just take intersection instead of union.
+\end{proof}
+
+\begin{exercise}[5.8]
+	Verify that for a stopping time $\tau$, $\cF_\tau$ is a sub $\sigma$-field.
+	If $\tau \equiv k$, then $\cF_\tau = \cF_k$. If $\tau_1 \leq \tau_2$ are stopping times,
+	then $\cF_{\tau_1} \subset \cF_{\tau_2}$. Finally, if $\tau$ is a stopping time,
+	then it is $\cF_\tau$ measurable.
+\end{exercise}
+\begin{proof}
+	Let's show that $\cF_{\tau} \subset \cF$ is a $\sigma$-field. Clearly $\varnothing \in \cF_\{\tau\}$.
+	Let $A \in \cF_{\tau}$, then for every $n$, $A \cap \{\tau \leq n\} \in \cF_{n}$,
+	But then, $A^c \cup \{\tau > n\} \in \cF_n$, and therefore
+	$A^c \cap \{\tau \leq n\} \in \cF_n$. Similarly, if $(A_n)_{n = 1}^{\infty}$ is
+	a sequence of sets in $\cF_{\tau}$, then for any $m$
+	\[
+		\{\tau \leq m\} \cap \bigcup_{n\geq 1} A_n = \bigcup_{n\geq 1} \{\tau \leq m \} \cap A_n \in \cF_m.
+	\]
+
+	If $\tau \equiv k$. It is clear that $\cF_k \subset \cF_{\tau}$ since for any
+	$A \in \cF_{k}$, $A \cap \{\tau \leq k\} = A \in \cF_k$.
+	Similarly, if $A \in \cF_{\tau}$, then $A = A \cap {\tau = k} \in \cF_k$.
+
+	If $\tau_1 \leq \tau_2$ and $A \in \cF_{\tau_1}$ then for any $m$
+	$A \cap \{\tau_2 \leq m\} \subset (A \cap \{\tau_1 \leq m\}) \cap \{\tau_2 \leq m\}$.
+	Note that $A \cap \{\tau_1 \leq m\} \in \cF_m$ and as $\{\tau \leq m\} \in \cF_m$,
+	we have that their intersection is also in $\cF_m$.
+
+	Finally, measurability is obvious since $\{\tau \leq n\} \in \cF_{\tau}$ for
+	every $n$.
+\end{proof}
+
+\begin{exercise}[5.10]
+	If $X_n$ is a submartingale and $\tau_1 \leq \tau_2 \leq M$ are bounded stopping times,
+	we have that $\Ex[X_{\tau_2} | \tau_1] \geq X_{\tau_1}$. With the respective
+	result for supermartingales.
+\end{exercise}
+\begin{proof}
+	Decompose $X_n$ as $Y_n + A_n$ where $Y_n$ is a martingale and $A_n$ is strictly increasing and
+	predictable. Now it is clear that, by linearity,
+	\[
+		\Ex[Y_{\tau_2} + A_{\tau_2} | \cF_{\tau_1}] = Y_{\tau_1} + \Ex[A_{\tau_2} | \cF_{\tau_1}] \geq Y_{\tau_1} + A_{\tau_1}.
+	\]
+	since $A_{\tau_2} \geq A_{\tau_1}$.
+
+	The interesting case is when $X_n$ is a martingale. Then you may only assume $\tau \leq M$ since
+	\[
+		\Ex[X_m | \cF_{\tau_1}] = \Ex[\Ex[X_m | \cF_{\tau_2}] | \cF_{\tau_1}].
+	\]
+	Then we are left with proving that $\Ex[X_M | \cF_{\tau}] = X_{\tau}$, to do that just separate
+	on the values of $\tau$.
+\end{proof}
+
+\begin{exercise}[5.11]
+	Let $X_0 = 0$ and $X_n = \sum_{j \leq n} \xi_j$ where $\xi_j$ are u.i.i.d on $\{-1,1\}$.
+	Let $\tau = \inf\{n : X_n = 1\}$. Then $\tau$ is a stopping time, $\Pr(\tau < \infty) = 1$,
+	but $\tau$ is not bounded. $X_\tau = 1$ with probability $1$ but $\Ex[X_0] = 0$.
+\end{exercise}
+\begin{proof}
+	I think the only thing to show on this exercise is that $\tau$ is a stopping time and
+	$\Pr(\tau < \infty) = 1$. Note that $\{\tau = n\} = \{X_n = 1\} \cap \bigcap_{j \leq n} \{X_j \neq 1\} \in \cF_n$,
+	so it is a stopping time. To show reccurence we can proceed with the usual
+	Catalan counting or use markov chains arguments.
+\end{proof}
+
+\begin{exercise}[5.12]
+	Let $\tau$ be an unbounded stopping time. For every $n$, $\tau \land n$ is a bounded stopping time
+	and $\Ex X_{\tau \land n} = 0$. As $n \to \infty$, $\tau \land n \to \tau$. If we
+	can estabilish uniform integrability, then we can pass to the limit. In particular,
+	is $S(\omega) = \sup_{0 \leq n \leq \tau} |X_n(\omega)|$ is integrable, then $\sup_n |X_{\tau \land n}| < S$
+	and so $\Ex X_\tau = 0$.
+\end{exercise}
+
+\begin{proof}
+	Yes, if $Z_n$ converges almost surely to $Z$ and they are uniformly integrable, then $\Ex Z_n \to \Ex Z$.
+\end{proof}
+
 
 \begin{exercise}
 	Seja $\tau$ um stopping time e $\tau_k \to \tau$ uma sequência crescente
