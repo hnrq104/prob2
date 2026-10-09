@@ -1,3 +1,16 @@
 \section{Lista 2}
 Alguns exercícios do Durrett de Markov Chains.
 
+\begin{exercise}
+    Let $\{X_n : n \geq 0\}$ be a submartingale with $\sup X_n < M_1 < \infty$.
+    Let $\xi_n = X_{n} - X_{n-1}$ and suppose $\Ex \sup \xi_n^+ < M_2 < \infty$.
+    Show that $X_n$ converges almost surely.
+\end{exercise}
+
+\begin{proof}
+    This is nice, almost got me. Note crucially that $\xi_n$ is a 
+    submartingale also! It is bounded almost surely by $2M_1$
+    and $\sup \Ex \xi_n^+ \leq M_2$. In particular it converges a.s to 
+    something $\geq 0$. As $X_n$ is bounded, it must converge to $0$,
+    from which we conclude that $X_n$ converges.
+\end{proof}
