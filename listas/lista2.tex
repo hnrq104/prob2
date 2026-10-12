@@ -1,18 +1,419 @@
-\section{Lista 2}
+\section{Durrett}
 Alguns exercícios do Durrett.
-
-
-
-\begin{exercise}
-    Let $\{X_n : n \geq 0\}$ be a submartingale with $\sup X_n < M_1 < \infty$.
-    Let $\xi_n = X_{n} - X_{n-1}$ and suppose $\Ex \sup \xi_n^+ < M_2 < \infty$.
-    Show that $X_n$ converges almost surely.
+\subsection{Martingales}
+\begin{exercise} [4.2.4]
+	Let $\{X_n : n \geq 0\}$ be a submartingale with $\sup X_n < M_1 < \infty$.
+	Let $\xi_n = X_{n} - X_{n-1}$ and suppose $\Ex \sup \xi_n^+ < M_2 < \infty$.
+	Show that $X_n$ converges almost surely.
 \end{exercise}
 
 \begin{proof}
-    This is nice, almost got me. Note crucially that $\xi_n$ is a 
-    submartingale also! It is bounded almost surely by $2M_1$
-    and $\sup \Ex \xi_n^+ \leq M_2$. In particular it converges a.s to 
-    something $\geq 0$. As $X_n$ is bounded, it must converge to $0$,
-    from which we conclude that $X_n$ converges.
+	I don't get why we need the $\xi_n$ hypothesis.
+	$X_n^+ \leq 0 \lor M_1$. So $\Ex X_n^+ \leq 0 \lor M_1$
+	and by the bounded submartingale convergence theorem,
+	we converge a.s.
 \end{proof}
+
+\begin{exercise}[4.2.5]
+	Give an example of a martingale $X_n$ with $X_n \to -\infty$ a.s.
+	Hint let $X_n = \xi_1 + \dots \xi_n$ where the $\xi_j$ are independent.
+\end{exercise}
+\begin{proof}
+	Consider $\xi_m$ with $\Ex \xi_m = 0$ s.t
+	\[
+		\Pr(\xi_m = -1) = 1 - 2^{-m} \quad \& \quad \Pr(\xi_m = 2^m(1 -
+		2^{-m})) = 2^{-m}.
+	\]
+	It is clear that $X_n$ forms a martingale, but by Borel Cantelli,
+	$\xi_m \neq -1$ for only finitely many $m$ almost surely. So $X_n
+	\to -\infty$ a.s.
+\end{proof}
+
+\begin{exercise}[4.2.6]
+	Let $Y_1, \dots$ be non negative i.i.d random variables with $\Ex
+	Y_m = 1$ and $\Pr(Y_m = 1) < 1$.
+	$X_n = \prod_{m \leq n} Y_m$ defines a martingale. Show that $X_n \to 0$ a.s
+	and that $\frac{1}{n}\log X_n \to c$ a.s for some $c < 0$.
+\end{exercise}
+\begin{proof}
+	Note that $X_m$ is a nonnegative inferiorly bounded martingale, therefore
+	a supermartingale and we know $X_m$ converges a.s. We also know that for some
+	$\alpha < 1$, $Y_m < \alpha$ infinitely often with probability $1$ by the
+	second Borel Cantelli. So $X_m$ must converge to $0$. The part follows
+	trivially by the law of large numbers and that $X_n \to 0$ a.s.
+\end{proof}
+
+\begin{exercise}[4.2.8]
+	Let $X_n$ and $Y_n$ be positive integrable and adapted to $\cF_n$.
+	Suppose
+	\[
+		\Ex[X_{n+1} | \cF] \leq (1 + Y_n)X_n
+	\]
+	with $\sum Y_n < \infty$ a.s. Prove that $X_n$ converges almost surely
+	to a finite limit by findind an appropriate supermartingale.
+\end{exercise}
+\begin{proof}
+	Consider
+	\[
+		Z_n = \Ex[X_n\prod_{m \geq n}(1 + Y_m)|\cF_n]
+	\]
+	which is integrable and positive by assumption. Now by the tower
+	property,
+	\[
+		\Ex[Z_{n+1}| \cF_n] =
+		\Ex[\Ex[X_{n+1} \prod_{m \geq n+1}(1 + Y_m) | \cF_{n+1}] | \cF_n].
+	\]
+	Furthermore, this right hand side is equal to
+	\[
+		\Ex[X_{n+1} \Ex[\prod_{m \geq n+1 | \cF_{n+1}}] | \cF_n] \leq
+		\Ex[X_n(1+Y_n) \Ex[\prod_{m \geq n+1} (1 + Y_m)|\cF_{n+1}] | \cF_n] \leq Z_n.
+	\]
+	So by the Martingale Convergence Theorem, $Z_n$ converges a.s.
+	But, as $\sum_m Y_m < \infty$ a.s, $Z_n \to X_n$, so $X_n$ converges
+	too.
+\end{proof}
+
+\begin{exercise}[4.2.9]
+	Switching principle. Suppose $X_n^1$ and $X_n^2$ are supermartingales
+	with respect to $\cF_n$ and $N$ is a stopping time so that $X_N^1 \geq X_N^2$.
+	Then both
+	\[
+		Y_n = X_n^1 \id[N > n] + X_n^2 \id[N \leq n] \quad \& \quad
+		Z_n = X_n^1 \id[N \geq n] + X_n^2 \id[N < n]
+	\]
+	are supermartingales.
+\end{exercise}
+\begin{proof}
+	Let's do the first one. As always we separate the as the possible
+	value of $N$. Clearly $Y_n$ and $Z_n$ are $\cF_n$ measurable.
+	Note that
+	\[
+		\Ex[Y_{n} | \cF_{n-1}] =
+		\Ex[X_{n}^1 \id[N > n] | \cF_{n-1}] + \Ex[X_{n}^2\id[N = n]|\cF_{n-1}]
+		+ \Ex[X_{n}^2 \id [N < n] | \cF_{n-1}].
+	\]
+	Now we exchange and separate the measurable variables to get that
+	the righthand side is less than
+	\[
+		\id[N > n-1]\Ex[X_{n}^1 | \cF_{n-1}] + \id[N <
+		n]\Ex[X_n^2|\cF_{n-1}] \leq Y_{n-1}
+	\]
+	because both $X_n^1, X_n^2$ are supermartingales. Let's see the same
+	thing for $Z_n$.
+	\[
+		\Ex[Z_n | \cF_{n-1}] = \id[N > n-1]\Ex[X_{n}^1|\cF_{n-1}] +
+		\Ex[\id[N = n-1]X_{N}^2 | \cF_{n-1}]
+		+ \id[N < n-1] \Ex[X_n^2 | \cF_{n-1}] \leq Z_{n-1}.
+	\]
+	by the same argument as before.
+\end{proof}
+
+\subsection{Markov Chains}
+\begin{exercise}[5.2.1]
+	Let $A \in \sigma(X_0, \dots, X_n)$ and $B \in \sigma(X_n, \dots)$. Use
+	the Markov property to show that for any initial distribution
+	$\mu$
+	\[
+		\Pr_\mu(A \cap B | X_n) = \Pr_\mu(A | X_n) \Pr_\mu(B | X_n).
+	\]
+\end{exercise}
+\begin{proof}
+	We write it out using conditional expectations,
+	\[
+		\Pr_\mu(A \cap B | X_n) = \Ex_\mu[\id[A]\Ex_\mu[\id[B]|\cF_n]|X_n]
+		= \Ex_\mu[\id[A] \Pr_\mu(B|X_n) | X_n] = \Pr_\mu(A | X_n) \Pr_\mu(B | X_n).
+	\]
+\end{proof}
+
+\begin{exercise}[5.2.2]
+	Let $X_n$ be a Markov chain. Use Lévy's 0-1 law to show that if
+	\[
+		\Pr(\bigcup_{m \geq n} \{X_m \in B_m\}|X_n) \geq \delta > 0 \quad
+		\text{on } \{X_n \in A_n\}
+	\]
+	then $\Pr(\{X_n \in A_n \,i.o\} - \{X_n \in B_n \,i.o\}) = 0$.
+\end{exercise}
+\begin{proof}
+	Let $Z = \id[X_n \in B_n \,i.o]$. By the Markov property,
+	$Z_n = \Ex[Z | \cF_n] = \Ex[Z | X_n]$ is a unif. bounded martingale
+	and therefore converges a.s. to $0$ or $1$. On $\{X_n \in A_n \,i.o\}$,
+	$Z_n > \delta i.o$ so $Z_n$ must converge to $Z = 1$. It follows that
+	$\id[X_n \in A_n \,i.o] = \id[X_n in A_n \,i.o \cap X_n \in B_n \,i.o]$.
+\end{proof}
+
+\begin{exercise}[5.2.3]
+	A state $a$ is called absorbing if $\Pr_a(X_1 = a) = 1$.
+	Let $D = \{\exists n \geq 1, X_n = a\}$ and let $h(x) = \Pr_x(D)$.
+	Conclude that $h(X_n) \to 0$ a.s on $D^c$.
+\end{exercise}
+\begin{proof}
+	Note that, by the Markov property, $D = \{X_n = a \,i.o\}$.
+	By Levy's, $\Pr_{X_n}(D) = \Ex[\id[D] | \cF_n] \to \id[D]$ a.s.
+	So on $D^c$ we have the result.
+\end{proof}
+
+\begin{exercise}[5.2.4]
+	Let $\tau_y = \inf\{n \geq 1 : X_n = y\}$. Show that
+	\[
+		p^n(x,y) = \sum_{m = 1}^{n} \Pr_x(T_y = m)p^{n - m}(y,y).
+	\]
+\end{exercise}
+\begin{proof}
+	Consider $\tau = \tau_y$, then
+	\[
+		p^n(x,y) = \Pr_x(X_n = y) = \Ex_x[\id[\tau \leq n]\Ex[\id[X_n = y]
+		| \cF_{\tau}]]
+	\]
+	By the strong Markov property, that is the same as
+	\[
+		\Ex_x\id[\tau \leq n]\Ex_{X_\tau}\id[X_{n - \tau} = y] = \sum_{m =
+		1} \Pr_x(\tau = m) p^{n-m}(y,y).
+	\]
+\end{proof}
+
+\begin{exercise}[5.2.5]
+	Show that
+	\[\sum_{m = 0}^n \Pr_x(X_m = x) \geq \sum_{m = k}^{n + k}
+	\Pr_x(X_m = x).\]
+\end{exercise}
+\begin{proof}
+	Ok, I remember I did this one but got stuck on something stupid.
+	First thing, if we define $h_n(z) = \sum_{m = 0}^n \Pr_z(X_m = x)$,
+	we show inductively that $h_n(z) \leq h_n(x)$ for all $z$.
+	It is clearly true for $h_0$. Now note that if $z \neq x$,
+	\[
+		h(z) = \sum_{m = 1}^n \Pr_z(X_m = x) = \Ex_z h_{n-1}(X_1) \leq
+		h_{n-1}(x) \leq h_{n}(x).
+	\]
+	But then it is clear that
+	\[
+		\sum_{m = 0}^{n} \Pr_x(X_{m+k} = x) =
+		\Ex_x \sum_{m = 0}^n \Pr_{X_k}(X_m = x)
+		= \Ex_x h_n(X_k) \leq h_n(x).
+	\]
+\end{proof}
+
+\begin{exercise}[5.2.6]
+	Let $\tau_C = \inf \{n \geq 1 : X_n \in C\}$. Suppose $S - C$ finite
+	and for each $x \in S-C$
+	$\Pr_x(\tau_C < \infty) > 0$. Then there is as $N < \infty$ and
+	$\eps > 0$ so that
+	for all $y \in S - C$, $\Pr_y(\tau_C > kN) \leq (1-\eps)^k$.
+\end{exercise}
+
+\begin{proof}
+	First note that, because $S-C$ is finite, there is $\eps$ and $N$
+	such that $\Pr_x(\tau_C < N) > \eps$ for all $x \in S - C$. Now we
+	prove the result by induction,
+	clearly, $\Pr_y(\tau_C > 0) \leq 1$ for $y \in S-C$. It follows from the weak
+	Markov property that $\Pr_y(\tau_C > (k+1)N)$ is equal to
+	\[
+		\Ex[\id[\tau_C > kN]\Ex[\id[\tau_C > (k+1)N] | \cF_{kN}]]
+		= \Ex[\id[\tau_C > kN] \Pr_{X_{kN}}(\tau_C > N)] \leq (1-\eps)^{k+1}.
+	\]
+\end{proof}
+
+\begin{exercise}[5.2.7]
+	Let $V_C = \inf\{n \geq 0 : X_n \in C\}$ and let $h(x) = \Pr_x(V_A <
+	V_B)$. Suppose $A \cap B = \varnothing$,
+	$S - (A \cup B)$ finite and $\Pr_x(V_{A \cup B} < \infty) > 0$ for
+	all $x \not \in A \cup B$.
+	Show that
+	\[
+		h(x) = \sum_{y} p(x,y)h(y) \quad \text{for } x \not \in A \cup B.
+	\]
+	That if some $h$ satisfies that, then $h(X_{n \cap V_{A \cup B}})$
+	is a martingale.
+	Conclude that if $h$ satisfies that, then $\Pr_x(V_A < V_B)$ is the
+	only solution
+	that satisfies $h = 1$ on $A$ and $h = 0$ on $B$.
+\end{exercise}
+
+\begin{proof}
+	Note that if $x \not \in A \cup B$, then
+	\[
+		\Pr_x(V_A < V_B) = \Ex_x[\Pr_{X_1}(V_A < V_B)] = \sum_y p(x,y)h(y).
+	\]
+	Suppose that $h(x)$ satisfies that relation and $|h(x)| < \infty$
+	for $x \not \in A \cup B$.
+	Note that by the previous exercises, $V_{A \cup B} < \infty$ a.s. It is clear
+	that if $h$ is integrable, then $h(X_{n \land V_{A \cup B}})$ is a martingale,
+	since, setting $\tau = V_{A \cup B}$,
+	\[
+		\Ex[h(X_{n \land \tau}) | \cF_{n-1}]
+		= \sum_{j = 0}^{n-1} \id[\tau = j]h(X_j) + \Ex_{X_{n-1}}[\id[\tau
+		\geq 1] h(X_1)] =
+		h(X_{\tau \land (n-1)}).
+	\]
+
+	To show that it is integrable we proceed by induction on $n$. Clearly,
+	for $X_0 \in S - C$, $|h(X_{\tau \land 0})| < \infty$. Now note that
+	\[
+		\Ex[|h(X_{\tau \land n+1})|] = \Ex[\id[\tau \geq n+1]|h(X_{n+1})| +
+		\id[\tau \leq n]|h(X_{\tau})|]
+	\]
+	Now, by assumption $\Ex[\id[\tau \leq
+	n]||h(X_\tau)| + |h(X_n)|\id[\tau > n]] < \infty$.
+	So second term from the previous sum has to be finite. We
+	are left with proving that $\Ex[\id[\tau \geq n+1] |h(X_{n+1})|] < \infty$.
+	But for this we expand and use the property.
+	\[
+		\Ex_{x_0}[\id[\tau \geq n+1] |h(X_{n+1})|] \leq \sup_{y \in S - C}
+		\Ex_y[|h(X_1)|] < \infty.
+	\]
+	We conclude that it is a martingale. Note that, by hypothesis, if
+	it is $1$ on $A$
+	and $0$ on $B$ it is uniformly bounded in $L^\infty$, so it converges a.s
+	to what we want.
+\end{proof}
+
+\begin{exercise}[5.2.8]
+	Let $X_n$ be a Markov chain with $S = \{0,1,\dots,N\}$ and suppose
+	that $X_n$ is a martingale. Let $\tau_x = \inf\{n \geq 0: X_n = x\}$ and
+	suppose that $\Pr_x(\tau_0 \land \tau_N < \infty) > 0$ for all $x$.
+	Show that $\Pr_x(\tau_N < \tau_0) = x/N$.
+\end{exercise}
+\begin{proof}
+	We've seen that almost surely, $\tau = \tau_0 \land \tau_N < \infty$. Now,
+	it is clear that, since the space is finite, $X_{n \land \tau}$ is
+	a uniformly integrable martingale that converges to $X_\tau$.
+	We thus conclude that
+	\[
+		x = \Ex_x X_\tau = \Ex_x[\lim_{n \to \infty} X_{\tau \land n}] = N
+		\Pr_x(\tau_N < \tau_0).
+	\]
+\end{proof}
+
+\begin{exercise}[5.2.11]
+	Let $\tau_A = \inf \{n \geq 0: X_n \in A\}$ and $g(x) = \Ex_x \tau_A$.
+	Suppose that $S - A$ is finite and for each $x \in S-A$,
+	$\Pr_x(\tau_A < \infty) > 0$. Show that
+	\[
+		g(x) = 1 + \sum_{y} p(x,y)g(y) \quad \text{for } x \not \in A.
+	\]
+	Show that if $g$ satisfies the previous equation, then
+	$g(X_{n \land \tau_A}) + n \land \tau_A$ is a martingale.
+	Conclude that $\Ex_x \tau_A$ is the only solution that is
+	$0$ on $A$.
+\end{exercise}
+\begin{proof}
+	This one is very similar to exercise 5.2.7. Note that by
+	the weak Markov property, for $x \not \in A$
+	\[
+		\Ex_x[\tau_A] = \Ex_x\Ex[\tau_A|\cF_1] = 1 + \Ex_x[\Ex_{X_1} \tau_A].
+	\]
+	Just as before, $Z_n = g(X_{n \land \tau_A}) + n \land \tau_A$ is integrable
+	when we assume $\Ex_{y} p(x,y)|g(y)| < \infty$ for all $x$ outside $A$.
+	And it follows that
+	\[
+		\Ex[Z_n | \cF_{n-1}]
+		= \sum_{j = 0}^{n-1}\id[\tau = j](g(X_j) + j) + \id[\tau \geq
+		n]\Ex[g(X_n) + 1 + (n-1)|\cF_{n-1}]
+	\]
+	and this righthand side is
+	\[
+		\id[\tau \leq n - 1](g(X_\tau) + \tau) + \id[\tau \geq
+		n](g(X_{n-1}) + n-1) = Z_{n-1}.
+	\]
+	For the last bit, note that if $g = 0$ on $A$, then we are
+	uniformly integrable.
+	By a previous exercise, $\tau < \infty$ a.s. So $Z_n$ converges almost surely
+	and for $x \not \in A$,
+	\[
+		g(x) = \Ex_x[Z_0] = \Ex_x[\lim_{n \to \infty} Z_n] = \Ex_x[\tau_A].
+	\]
+\end{proof}
+
+For the next few exercises we make the following definition.
+\begin{definition}
+	If $(S,p)$ is a Markov chain and $x,y \in S$, then we set $\rho(x,
+	y) = \Pr_x(\tau_y < \infty)$.
+\end{definition}
+
+\begin{exercise} [5.3.1]
+    Suppose $y$ is recurrent and for $k \geq 0$ let $R_k = T_y^k$ be 
+    the time of the $k$th return to $y$, and for $k \geq 1$ let 
+    $r_k = R_k - R_{k-1}$ be the $k$th interarrival time. 
+    Use the strong Markov property to conclude that under $\Pr_y$,
+    the vectors $v_k = (r_k, X_{R_{k-1}}, \dots, X_{R_{k} - 1})$ are i.i.d.
+\end{exercise}
+
+\begin{proof}
+    A stronger thing follows, the distribution of $(X_{R_k + 1}, \dots)$
+    is independent of the previous interarrival times. To this end, 
+    note that $R_k < \infty$ a.s, and by the Strong Markov Property, 
+    for every measurable $Y$ on $\Omega_0$, 
+    \[
+        \Ex_y[Y \circ \Theta_{R_k} | \cF_{R_k}] = \Ex_{y}[Y].
+    \]
+    In particular, for measurable $Y_k$ dependent on $(X_{R_{k-1}}, \dots X_{R_{k - 1}})$
+    we find that 
+    \[
+        \Ex_y[\prod_{j=1}^n Y_j \circ \Theta_{R_{j-1}}] 
+            = \Ex_y[\prod_{j = 1}^{n-1}Y_j \Theta_{R_j} \Ex[Y_n \circ \Theta_{R_{n-1}} | \cF_{R_{n-1}}]]
+                = \Ex_y[Y_n] \Ex_y[\prod_{j=1}^{n-1} Y_j \circ \Theta_{R_{j-1}}].
+    \]
+    Applying this for $Y_j$ being indicators, we conclude that these distributions 
+    are i.i.d.
+\end{proof}
+
+\begin{exercise}[5.3.2]
+    Use the strong Markov property to show that $\rho_{xz} \geq \rho_{x,y}\rho_{yz}$.
+\end{exercise}
+\begin{proof}
+    Let $\tau_z$ and $\tau_y$ be defined as usual. We want to show that 
+    \[
+    \Pr_x(\tau_z < \infty) \geq \Pr_x(\tau_y < \infty)\Pr_y(\tau_z < \infty).
+    \]
+    Note that,
+    \[
+        \Pr_x(\tau_z < \infty) \geq \Ex_x[\id[\tau_y < \infty]\Pr_x(\tau_z < \infty)] 
+        = \Ex_x \id[\tau_y < \infty]\Ex_x[\Ex[\id[\tau_z < \infty]| \cF_{\tau_y}]]
+    \]
+    Now this right hand side is equal to
+    \[
+        \Ex_x \id[\tau_y < \infty]\Pr_y(\tau_z < \infty) = \rho_{x,y}\rho(y,z)
+    \]
+    which is what we want to show.
+\end{proof}
+
+\begin{exercise}[5.3.5]
+    Suppose $S$ is irreducibible, $\varphi > 0$ with $\Ex_x \varphi(X_1) \leq \varphi(x)$ for $x \not \in F$, 
+    a finite set, and $\phi(x) \to 0$ as $x \to \infty$, then the chain is transient.
+\end{exercise}
+\begin{proof}
+    Consider $\tau = \inf{n \geq 0 : X_n \in F}$ and the 
+    positive supermartingale given by $Y_n = \varphi(X_{n \land \tau})$. 
+    It is a supermartingale as, using the weak Markov property,  
+    \[
+        \Ex[Y_{n+1}| \cF_n] = \id[\tau \leq n]\varphi(X_\tau) + \id[\tau > n]\Ex[\varphi(X_{n+1})|\cF_n]
+        = \id[\tau \leq n]\varphi(X_\tau) + \id[\tau > n]\Ex_{X_{n}} \varphi(X_1) \leq Y_n.
+    \]
+    So, by the martingale convergence theorem, this converges a.s to a limit $Z$
+    with $\Ex[Z] \leq \Ex_x\phi(X_0)$. But then, for $x \not \in F$,
+    \[
+        \phi(x) = \Ex_x[Z_0] \geq \Ex[[\tau < \infty]\phi(X_\tau)] \geq \Pr(\tau < \infty) \inf_{y \in F}\phi(y).
+    \]
+    Sending $x \to \infty$ we get the result.
+\end{proof}
+
+\begin{exercise}
+    $f$ is said to be superharmonic if $\Ex_x(f(X_1)) \leq f(x)$ or 
+    equivalentely, $f(X_n)$ is a supermartingale. Suppose $p$ is irreducibible,
+    show that $p$ is recurrent iff every non-negative superharmonic function is constant.
+\end{exercise}
+\begin{proof}
+    Suppose that every non-negative superharmonic function is constant and 
+    consider $h_z(x) = \Pr_x(\tau_z < \infty)$. Then $h_z(z) = 1$ but $h$ is harmonic, 
+    as
+    \[
+    \Pr_x(\tau_z < \infty) = \Ex_x[\Pr(\tau_z < \infty | X_1)] = \sum_{y} p(x,y)h_z(y).
+    \]
+    therefore superharmonic and constant equal to $1$.
+
+    On the other hand, suppose that $p$ is recurrent. As $f(X_n)$ is a positive 
+    superharmonic martingale, it converges a.s. But $X_n$ infinitely often is equal to any $x$
+    of the chain, so $f$ must be constant.
+\end{proof}
+
+
