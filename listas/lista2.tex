@@ -378,7 +378,7 @@ For the next few exercises we make the following definition.
 \end{proof}
 
 \begin{exercise}[5.3.5]
-    Suppose $S$ is irreducibible, $\varphi > 0$ with $\Ex_x \varphi(X_1) \leq \varphi(x)$ for $x \not \in F$, 
+    Suppose $S$ is irreducible, $\varphi > 0$ with $\Ex_x \varphi(X_1) \leq \varphi(x)$ for $x \not \in F$, 
     a finite set, and $\phi(x) \to 0$ as $x \to \infty$, then the chain is transient.
 \end{exercise}
 \begin{proof}
@@ -390,14 +390,30 @@ For the next few exercises we make the following definition.
         = \id[\tau \leq n]\varphi(X_\tau) + \id[\tau > n]\Ex_{X_{n}} \varphi(X_1) \leq Y_n.
     \]
     So, by the martingale convergence theorem, this converges a.s to a limit $Z$
-    with $\Ex[Z] \leq \Ex_x\phi(X_0)$. But then, for $x \not \in F$,
+    with $\Ex[Z] \leq \Ex_x\varphi(X_0)$. Furthermore, consider the stopping time 
+    $\tau_\eps = \inf\{n \geq 0: \varphi(X_n) \leq \eps\}$. It is clear that
+    $Z_\{n \land \tau_\eps\}$ is also a supermartingale, and, because $\varphi(x) \to \infty$,
+    $\tau_\eps < \infty$ a.s. So we also converge with this positive supermartingale.
+    But then, for $x \not \in F$,
     \[
-        \phi(x) = \Ex_x[Z_0] \geq \Ex[[\tau < \infty]\phi(X_\tau)] \geq \Pr(\tau < \infty) \inf_{y \in F}\phi(y).
+        \varphi(x) = \Ex_x[\varphi(X_{\tau \land \tau_\eps})] = 
+        \Ex \id[\tau < \tau_{\eps}]\varphi(X_\tau) + 
+        \Ex \id[\tau_{\eps} \leq \tau] \varphi(X_{\tau_\eps}).
     \]
-    Sending $x \to \infty$ we get the result.
+    Rearranging we see that for every $\eps > 0$, 
+    \[
+    \Pr(\{\tau < \tau_\eps\}) \leq \frac{\varphi(x) + \eps}{\inf\{\varphi(y): y \in F\}}
+    \]
+    Sending $x \to \infty$ we find $x$ such that $\phi(x)/\inf\{\phi(y) : y \in F\} < 1/10$.
+    Now
+    \[
+    \Pr_x(\tau < \infty) = \Pr(\bigcup_{\eps \to 0} \{\tau < \tau_\eps\}) = 
+    \lim_{\eps \to 0} \Pr(\tau < \tau_\eps) \leq \frac{1}{10}.
+    \]
+    proving transience.
 \end{proof}
 
-\begin{exercise}
+\begin{exercise}[5.3.7]
     $f$ is said to be superharmonic if $\Ex_x(f(X_1)) \leq f(x)$ or 
     equivalentely, $f(X_n)$ is a supermartingale. Suppose $p$ is irreducibible,
     show that $p$ is recurrent iff every non-negative superharmonic function is constant.
@@ -417,3 +433,22 @@ For the next few exercises we make the following definition.
 \end{proof}
 
 
+\begin{exercise}[5.5.2]
+    Let $w_{xy} = \Pr_x(T_y < T_x)$. Show that $\mu_x(y) = w_{xy}/w_{yx}$.
+\end{exercise}
+
+\begin{exercise}[5.5.3]
+    Show that if $p$ is irreducible and recurrent, then
+    \[
+    \mu_x(y)\mu_y(z) = \mu_x(z)
+    \]
+\end{exercise}
+
+\begin{exercise}[5.5.4]
+    Suppose $p$ is irreducible and positive reccurent. Then $\Ex_x T_y < \infty$ for all $x,y$.
+\end{exercise}
+
+\begin{exercise}[5.5.5]
+    Suppose $p$ is irreducible and has a stationary measure $\mu$ with $\Ex_x \mu(x) = \infty$.
+    Then $p$ is not positive recurrent.
+\end{exercise}
