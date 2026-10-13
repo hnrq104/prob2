@@ -436,6 +436,21 @@ For the next few exercises we make the following definition.
 \begin{exercise}[5.5.2]
     Let $w_{xy} = \Pr_x(T_y < T_x)$. Show that $\mu_x(y) = w_{xy}/w_{yx}$.
 \end{exercise}
+\begin{proof}
+    Let's show that $w_{yx}\mu_x(y) = w_{xy}$. We expanding $w_{yx}\mu_x(y)$ 
+    we get
+    \[
+    w_{yx}\mu_x(y) = \sum_{n \geq 0} \Pr_y(T_x < T_y)\Pr(X_n = y, T_x > n)
+    \]
+    Now with a bit of manipulation and Markovicity, we can show this expression 
+    is equal to 
+    \[
+        \Ex \sum_{n \geq 0} \id[T_x < T_y] \circ \Theta_{T_y} \id[X_n = y] \id[T_x > n].
+    \]
+    and its not hard to see that this sum of indicators is equal to $\id[T_y < T_x]$
+    when $x$ is recurrent. It suffices to look at the last visit to $y$ before hitting $x$.
+    Now, if $x$ is not recurrent, what can we say? 
+\end{proof}
 
 \begin{exercise}[5.5.3]
     Show that if $p$ is irreducible and recurrent, then
@@ -443,12 +458,29 @@ For the next few exercises we make the following definition.
     \mu_x(y)\mu_y(z) = \mu_x(z)
     \]
 \end{exercise}
+\begin{proof}
+    This follows easily from the uniqueness of stationary measures. Just not that 
+    $\mu_y(\cdot) = \mu_x(\cdot)/\mu_x(y)$ and open it up.
+\end{proof}
+
 
 \begin{exercise}[5.5.4]
     Suppose $p$ is irreducible and positive reccurent. Then $\Ex_x T_y < \infty$ for all $x,y$.
 \end{exercise}
+\begin{proof}
+    I spent way more on this than I should. Just note that 
+    \[
+    \Ex_x T_x \geq \Ex_x \id[T_y < T_x](T_y + (T_x - T_y)) \geq p \Ex_y T_x.
+    \]
+    by using irreducibility and the Markov property.
+\end{proof}
 
 \begin{exercise}[5.5.5]
     Suppose $p$ is irreducible and has a stationary measure $\mu$ with $\Ex_x \mu(x) = \infty$.
     Then $p$ is not positive recurrent.
 \end{exercise}
+\begin{proof}
+    Note that $\Ex_{x} T_x = \sum_y \mu_x(y)$, so if $p$ was positive recurrent then 
+    the sum would be finite. 
+\end{proof}
+
